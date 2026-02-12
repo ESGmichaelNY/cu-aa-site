@@ -1,0 +1,268 @@
+.page {
+    background-color: var(--background);
+    min-height: 100vh;
+}
+
+.header {
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.header h1 {
+    font-size: 2rem;
+    color: var(--columbia-blue);
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.searchBar {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.searchInput {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+    color: var(--text-dark);
+    border-radius: 8px;
+    min-width: 250px;
+    font-size: 1rem;
+}
+
+.searchBtn {
+    background-color: var(--columbia-blue);
+    color: white;
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.clearBtn {
+    display: flex;
+    align-items: center;
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* Table */
+.tableWrapper {
+    overflow-x: auto;
+    padding-bottom: 4rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.table th {
+    background-color: var(--columbia-blue);
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover td {
+    background-color: rgba(0, 46, 109, 0.03);
+}
+
+.table td {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    vertical-align: middle;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.editBtn {
+    background-color: var(--columbia-blue);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.editBtn:hover {
+    opacity: 0.9;
+}
+
+.deleteBtn {
+    background-color: var(--accent-red);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.deleteBtn:hover {
+    opacity: 0.9;
+}
+
+.empty {
+    text-align: center;
+    padding: 4rem;
+    color: var(--text-light);
+}
+
+/* Edit page */
+.backLink {
+    display: inline-block;
+    color: var(--columbia-blue);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+}
+
+.backLink:hover {
+    text-decoration: underline;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.section {
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    font-size: 1.1rem;
+    color: var(--columbia-blue);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.field label {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.field input,
+.field select,
+.field textarea {
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    background-color: var(--background);
+    color: var(--text-dark);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.submitArea {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.saveBtn {
+    background-color: var(--columbia-blue);
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.saveBtn:hover {
+    opacity: 0.9;
+}
+
+.cancelBtn {
+    color: var(--text-light);
+    padding: 0.75rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.cancelBtn:hover {
+    border-color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+    .table th:nth-child(4),
+    .table td:nth-child(4),
+    .table th:nth-child(5),
+    .table td:nth-child(5) {
+        display: none;
+    }
+}

@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Framework:** Next.js 14+ (App Router)
 - **Language:** TypeScript
 - **Auth:** Clerk
-- **Database:** Supabase (for extended user profiles and app data)
+- **Database:** Neon Postgres (`@neondatabase/serverless`) for user profiles and app data
 - **Styling:** Vanilla CSS (CSS Modules + Global CSS variables)
 - **Deployment:** Netlify (Target)
 
@@ -35,7 +35,7 @@ npm run lint
 
 - **`src/app/`**: App Router pages and layouts.
 - **`src/middleware.ts`**: Clerk authentication middleware.
-- **`src/utils/supabase/`**: Supabase Client & Server utilities.
+- **`src/utils/db.ts`**: Neon database client utility.
 - **`components/`**: Reusable React components.
 - **`public/assets/`**: Static assets (images, icons).
 
@@ -55,15 +55,18 @@ Clerk handles all authentication (sign-up, sign-in, session management).
    NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
    ```
 
-## Supabase Setup (Database)
+## Neon Setup (Database)
 
-Supabase stores extended user profiles and application data not managed by Clerk.
+Neon Postgres stores extended user profiles and application data not managed by Clerk.
 
-1. Go to [supabase.com](https://supabase.com) and create a project.
-2. In the SQL Editor, run the contents of `supabase_setup.sql`.
-3. Copy the URL and ANON KEY to `.env.local` (see `.env.local.example`).
+1. Project: `cu-aa-site` (ID: `muddy-hat-07657199`) on Neon.
+2. The `profiles` table schema is in `supabase_setup.sql` (still valid for Neon).
+3. Add the connection string to `.env.local`:
+   ```
+   DATABASE_URL=postgresql://...@....neon.tech/neondb?sslmode=require
+   ```
 
-**Note:** User profiles in Supabase are linked to Clerk users via `clerk_user_id`.
+**Note:** User profiles are linked to Clerk users via `clerk_user_id`.
 
 ## Styling Guidelines
 
@@ -79,7 +82,7 @@ Supabase stores extended user profiles and application data not managed by Clerk
 See `DEPLOYMENT.md` for detailed instructions on deploying to Netlify, including:
 - Environment variable configuration
 - Clerk production setup
-- Supabase RLS policies
+- Neon database setup
 - Custom domain configuration
 - Production checklist
 

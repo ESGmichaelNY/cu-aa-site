@@ -61,18 +61,18 @@ export default function ForumsPage() {
                         ))}
                     </div>
 
-                    <div className={styles.discordCta}>
-                        <div className={styles.discordIcon}>🎮</div>
+                    <div className={styles.whatsappCta}>
+                        <div className={styles.whatsappIcon}>💬</div>
                         <div>
                             <h3>Join the Conversation</h3>
-                            <p>Our discussions also happen on Discord. Join our server to stay connected between meetings.</p>
+                            <p>Our community discussions happen on WhatsApp. Join our group to stay connected between meetings, share ideas, and collaborate with fellow alumni.</p>
                             <a
-                                href="https://discord.gg/buzRNDjggr"
+                                href="https://chat.whatsapp.com/INVITE_LINK"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={styles.discordBtn}
+                                className={styles.whatsappBtn}
                             >
-                                Join Discord Server
+                                Join WhatsApp Group
                             </a>
                         </div>
                     </div>

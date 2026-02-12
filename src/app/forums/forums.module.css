@@ -82,36 +82,36 @@
     font-weight: 600;
 }
 
-.discordCta {
+.whatsappCta {
     display: flex;
     align-items: flex-start;
     gap: 1.5rem;
     padding: 2rem;
     background: var(--surface);
-    border: 2px solid #5865F2;
+    border: 2px solid #25D366;
     border-radius: 12px;
 }
 
-.discordIcon {
+.whatsappIcon {
     font-size: 2rem;
     flex-shrink: 0;
 }
 
-.discordCta h3 {
+.whatsappCta h3 {
     color: var(--text-dark);
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
 }
 
-.discordCta p {
+.whatsappCta p {
     color: var(--text-light);
     margin-bottom: 1rem;
     font-size: 1rem;
 }
 
-.discordBtn {
+.whatsappBtn {
     display: inline-block;
-    background-color: #5865F2;
+    background-color: #25D366;
     color: white;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -120,8 +120,8 @@
     transition: background-color 0.2s;
 }
 
-.discordBtn:hover {
-    background-color: #4752C4;
+.whatsappBtn:hover {
+    background-color: #128C7E;
 }
 
 @media (max-width: 768px) {
@@ -129,7 +129,7 @@
         grid-template-columns: 1fr;
     }
 
-    .discordCta {
+    .whatsappCta {
         flex-direction: column;
         text-align: center;
     }

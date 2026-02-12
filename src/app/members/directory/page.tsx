@@ -1,9 +1,22 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
+import { getDb } from "@/utils/db";
 import styles from "./directory.module.css";
 
 export const dynamic = 'force-dynamic';
+
+interface Profile {
+    id: string;
+    clerk_user_id: string;
+    full_name: string | null;
+    class_year: string | null;
+    school: string | null;
+    industry: string | null;
+    company: string | null;
+    bio: string | null;
+    linkedin_url: string | null;
+    avatar_url: string | null;
+}
 
 export default async function DirectoryPage(props: {
     searchParams: Promise<{ search?: string; industry?: string }>;
@@ -17,25 +30,21 @@ export default async function DirectoryPage(props: {
         redirect("/sign-in");
     }
 
-    const supabase = await createClient();
+    const sql = getDb();
 
-    // 2. Build Query
-    let query = supabase
-        .from("profiles")
-        .select("*")
-        .order("full_name", { ascending: true });
+    // 2. Fetch profiles with optional search/filter
+    let profiles: Profile[];
+    try {
+        const search = searchParams.search ? `%${searchParams.search}%` : null;
+        const industry = searchParams.industry ? `%${searchParams.industry}%` : null;
 
-    if (searchParams.search) {
-        query = query.ilike("full_name", `%${searchParams.search}%`);
-    }
-
-    if (searchParams.industry) {
-        query = query.ilike("industry", `%${searchParams.industry}%`);
-    }
-
-    const { data: profiles, error } = await query;
-
-    if (error) {
+        profiles = await sql`
+            SELECT * FROM profiles
+            WHERE (${search}::text IS NULL OR full_name ILIKE ${search})
+            AND (${industry}::text IS NULL OR industry ILIKE ${industry})
+            ORDER BY full_name ASC
+        ` as Profile[];
+    } catch (error) {
         console.error("Error fetching profiles:", error);
         return <div>Error loading directory</div>;
     }

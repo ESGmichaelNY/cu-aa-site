@@ -1,6 +1,6 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
+import { getDb } from "@/utils/db";
 import { updateProfile } from "../auth/actions";
 import styles from "./profile.module.css";
 
@@ -12,26 +12,19 @@ export default async function ProfilePage() {
     }
 
     const user = await currentUser();
-    const supabase = await createClient();
+    const sql = getDb();
 
     // Fetch current profile data by clerk_user_id
-    let { data: profile } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("clerk_user_id", userId)
-        .single();
+    const rows = await sql`SELECT * FROM profiles WHERE clerk_user_id = ${userId} LIMIT 1`;
+    let profile = rows[0] || null;
 
     // Auto-create profile on first visit if none exists
     if (!profile) {
-        const { data: newProfile } = await supabase
-            .from("profiles")
-            .insert({
-                clerk_user_id: userId,
-                full_name: user?.fullName || "",
-            })
-            .select()
-            .single();
-        profile = newProfile;
+        const fullName = user?.fullName || "";
+        const inserted = await sql`
+            INSERT INTO profiles (clerk_user_id, full_name) VALUES (${userId}, ${fullName}) RETURNING *
+        `;
+        profile = inserted[0];
     }
 
     return (

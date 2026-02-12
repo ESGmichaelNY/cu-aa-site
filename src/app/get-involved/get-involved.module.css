@@ -1,0 +1,148 @@
+.hero {
+    background: linear-gradient(135deg, var(--columbia-blue) 0%, var(--columbia-light-blue) 100%);
+    padding: 4rem 0;
+    color: white;
+    text-align: center;
+}
+
+.heroSubtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-top: 1rem;
+}
+
+.section {
+    padding: 4rem 0;
+    background-color: var(--background);
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.formIntro {
+    margin-bottom: 2rem;
+}
+
+.formIntro h2 {
+    color: var(--columbia-blue);
+    margin-bottom: 0.75rem;
+}
+
+.formIntro p {
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.fieldGroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.fieldGroup .field {
+    margin-bottom: 0;
+}
+
+.field label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    margin-bottom: 0.4rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: var(--background);
+    color: var(--text-dark);
+    transition: border-color 0.2s;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+    outline: none;
+    border-color: var(--columbia-blue);
+}
+
+.field select {
+    min-height: 120px;
+}
+
+.field textarea {
+    resize: vertical;
+}
+
+.hint {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 0.3rem;
+}
+
+.actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submitBtn {
+    background-color: var(--columbia-blue);
+    color: white;
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submitBtn:hover {
+    background-color: var(--columbia-light-blue);
+}
+
+.altContact {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.altContact a {
+    color: var(--columbia-blue);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.altContact a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .fieldGroup {
+        grid-template-columns: 1fr;
+    }
+}

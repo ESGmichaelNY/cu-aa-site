@@ -1,0 +1,121 @@
+.hero {
+    background: linear-gradient(135deg, var(--columbia-blue) 0%, var(--columbia-light-blue) 100%);
+    padding: 4rem 0;
+    color: white;
+    text-align: center;
+}
+
+.heroSubtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-top: 1rem;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section {
+    padding: 4rem 0;
+    background-color: var(--background);
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.impactGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.impactCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.impactIcon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.impactCard h3 {
+    color: var(--columbia-blue);
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.impactCard p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.donateBlock {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--surface);
+    border: 2px solid var(--columbia-light-blue);
+    border-radius: 12px;
+}
+
+.donateBlock h2 {
+    color: var(--columbia-blue);
+    margin-bottom: 1rem;
+}
+
+.donateBlock p {
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.primaryBtn {
+    display: inline-block;
+    background-color: var(--columbia-blue);
+    color: white;
+    padding: 0.875rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.primaryBtn:hover {
+    background-color: var(--columbia-light-blue);
+}
+
+.secondaryBtn {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--columbia-blue);
+    padding: 0.875rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--columbia-blue);
+    transition: all 0.2s;
+}
+
+.secondaryBtn:hover {
+    background-color: var(--columbia-blue);
+    color: white;
+}

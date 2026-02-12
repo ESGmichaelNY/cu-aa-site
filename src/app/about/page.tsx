@@ -155,7 +155,7 @@ export default function AboutPage() {
                             brighter future for Africa.
                         </p>
                         <div className={styles.cta}>
-                            <Link href="/sign-up" className={styles.primaryBtn}>Get Involved</Link>
+                            <Link href="/get-involved" className={styles.primaryBtn}>Get Involved</Link>
                         </div>
                     </div>
                 </div>

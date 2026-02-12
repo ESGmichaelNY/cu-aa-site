@@ -1,0 +1,114 @@
+.hero {
+    background: linear-gradient(135deg, var(--columbia-blue) 0%, var(--columbia-light-blue) 100%);
+    padding: 4rem 0;
+    color: white;
+    text-align: center;
+}
+
+.heroSubtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-top: 1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section {
+    padding: 4rem 0;
+    background-color: var(--background);
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.programBlock {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.programBlock:last-of-type {
+    border-bottom: none;
+}
+
+.programHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.programIcon {
+    font-size: 2rem;
+}
+
+.programHeader h2 {
+    color: var(--columbia-blue);
+    font-size: 1.75rem;
+    margin: 0;
+}
+
+.programDesc {
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+}
+
+.highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.75rem;
+}
+
+.highlights li {
+    padding: 0.75rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--columbia-light-blue);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+}
+
+.ctaBlock {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+
+.ctaBlock h2 {
+    color: var(--columbia-blue);
+    margin-bottom: 0.75rem;
+}
+
+.ctaBlock p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.primaryBtn {
+    display: inline-block;
+    background-color: var(--columbia-blue);
+    color: white;
+    padding: 0.875rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.primaryBtn:hover {
+    background-color: var(--columbia-light-blue);
+}

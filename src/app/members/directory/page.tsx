@@ -30,11 +30,25 @@ export default async function DirectoryPage(props: {
         redirect("/sign-in");
     }
 
-    const sql = getDb();
+    // 2. Check DATABASE_URL is configured
+    if (!process.env.DATABASE_URL) {
+        return (
+            <div className={styles.page}>
+                <div className={styles.header}>
+                    <div className={styles.container}>
+                        <h1>Alumni Directory</h1>
+                        <p>Database connection is not configured. Please set the DATABASE_URL environment variable.</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
-    // 2. Fetch profiles with optional search/filter
+    // 3. Fetch profiles with optional search/filter
     let profiles: Profile[];
     try {
+        const sql = getDb();
+
         if (searchParams.search && searchParams.industry) {
             const search = `%${searchParams.search}%`;
             const industry = `%${searchParams.industry}%`;
@@ -66,7 +80,19 @@ export default async function DirectoryPage(props: {
         }
     } catch (error) {
         console.error("Error fetching profiles:", error);
-        return <div>Error loading directory</div>;
+        return (
+            <div className={styles.page}>
+                <div className={styles.header}>
+                    <div className={styles.container}>
+                        <h1>Alumni Directory</h1>
+                        <p>Unable to load the directory. Please try again later.</p>
+                        <p style={{ fontSize: '0.875rem', color: 'var(--text-light)' }}>
+                            Error: {error instanceof Error ? error.message : 'Unknown error'}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (

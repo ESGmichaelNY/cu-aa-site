@@ -5,16 +5,16 @@ import { redirect } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
 import { getDb } from '@/utils/db'
 
-async function requireAdmin() {
+async function requireAuth() {
     const { userId } = await auth()
-    if (!userId || userId !== process.env.ADMIN_USER_ID) {
-        redirect('/members/directory')
+    if (!userId) {
+        redirect('/sign-in')
     }
     return userId
 }
 
 export async function deleteProfile(formData: FormData) {
-    await requireAdmin()
+    await requireAuth()
 
     const id = formData.get('id') as string
     if (!id) throw new Error('Profile ID is required')
@@ -27,7 +27,7 @@ export async function deleteProfile(formData: FormData) {
 }
 
 export async function editProfile(id: string, formData: FormData) {
-    await requireAdmin()
+    await requireAuth()
 
     if (!id) throw new Error('Profile ID is required')
 

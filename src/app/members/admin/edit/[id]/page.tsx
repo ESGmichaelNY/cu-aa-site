@@ -25,8 +25,8 @@ export default async function EditMemberPage(props: {
     const params = await props.params;
     const { userId } = await auth();
 
-    if (!userId || userId !== process.env.ADMIN_USER_ID) {
-        redirect("/members/directory");
+    if (!userId) {
+        redirect("/sign-in");
     }
 
     const sql = getDb();

@@ -23,9 +23,8 @@ export default async function AdminPage(props: {
     const searchParams = await props.searchParams;
     const { userId } = await auth();
 
-    const adminId = process.env.ADMIN_USER_ID || process.env.NEXT_PUBLIC_ADMIN_USER_ID;
-    if (!userId || userId !== adminId) {
-        redirect("/members/directory");
+    if (!userId) {
+        redirect("/sign-in");
     }
 
     if (!process.env.DATABASE_URL) {

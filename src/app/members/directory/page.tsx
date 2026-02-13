@@ -35,15 +35,35 @@ export default async function DirectoryPage(props: {
     // 2. Fetch profiles with optional search/filter
     let profiles: Profile[];
     try {
-        const search = searchParams.search ? `%${searchParams.search}%` : null;
-        const industry = searchParams.industry ? `%${searchParams.industry}%` : null;
-
-        profiles = await sql`
-            SELECT * FROM profiles
-            WHERE (${search}::text IS NULL OR full_name ILIKE ${search})
-            AND (${industry}::text IS NULL OR industry ILIKE ${industry})
-            ORDER BY full_name ASC
-        ` as Profile[];
+        if (searchParams.search && searchParams.industry) {
+            const search = `%${searchParams.search}%`;
+            const industry = `%${searchParams.industry}%`;
+            profiles = await sql`
+                SELECT * FROM profiles
+                WHERE full_name ILIKE ${search}
+                AND industry ILIKE ${industry}
+                ORDER BY full_name ASC
+            ` as Profile[];
+        } else if (searchParams.search) {
+            const search = `%${searchParams.search}%`;
+            profiles = await sql`
+                SELECT * FROM profiles
+                WHERE full_name ILIKE ${search}
+                ORDER BY full_name ASC
+            ` as Profile[];
+        } else if (searchParams.industry) {
+            const industry = `%${searchParams.industry}%`;
+            profiles = await sql`
+                SELECT * FROM profiles
+                WHERE industry ILIKE ${industry}
+                ORDER BY full_name ASC
+            ` as Profile[];
+        } else {
+            profiles = await sql`
+                SELECT * FROM profiles
+                ORDER BY full_name ASC
+            ` as Profile[];
+        }
     } catch (error) {
         console.error("Error fetching profiles:", error);
         return <div>Error loading directory</div>;

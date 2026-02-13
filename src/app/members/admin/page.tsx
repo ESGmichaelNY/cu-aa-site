@@ -23,22 +23,34 @@ export default async function AdminPage(props: {
     const searchParams = await props.searchParams;
     const { userId } = await auth();
 
-    if (!userId || userId !== process.env.ADMIN_USER_ID) {
+    const adminId = process.env.ADMIN_USER_ID || process.env.NEXT_PUBLIC_ADMIN_USER_ID;
+    if (!userId || userId !== adminId) {
         redirect("/members/directory");
+    }
+
+    if (!process.env.DATABASE_URL) {
+        return <div>Database connection is not configured.</div>;
     }
 
     const sql = getDb();
 
     let profiles: Profile[];
     try {
-        const search = searchParams.search ? `%${searchParams.search}%` : null;
-
-        profiles = await sql`
-            SELECT id, clerk_user_id, full_name, class_year, school, industry, company
-            FROM profiles
-            WHERE (${search}::text IS NULL OR full_name ILIKE ${search})
-            ORDER BY full_name ASC
-        ` as Profile[];
+        if (searchParams.search) {
+            const search = `%${searchParams.search}%`;
+            profiles = await sql`
+                SELECT id, clerk_user_id, full_name, class_year, school, industry, company
+                FROM profiles
+                WHERE full_name ILIKE ${search}
+                ORDER BY full_name ASC
+            ` as Profile[];
+        } else {
+            profiles = await sql`
+                SELECT id, clerk_user_id, full_name, class_year, school, industry, company
+                FROM profiles
+                ORDER BY full_name ASC
+            ` as Profile[];
+        }
     } catch (error) {
         console.error("Error fetching profiles:", error);
         return <div>Error loading members</div>;

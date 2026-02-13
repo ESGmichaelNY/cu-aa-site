@@ -1,8 +1,12 @@
+'use client';
+
 import Link from 'next/link';
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs';
 import styles from './navbar.module.css';
 
 export default function Navbar() {
+    const { user } = useUser();
+    const isAdmin = user?.id === process.env.NEXT_PUBLIC_ADMIN_USER_ID;
     return (
         <nav className={styles.navbar}>
             <div className={styles.container}>
@@ -40,6 +44,9 @@ export default function Navbar() {
                     <div className={styles.divider}></div>
 
                     <SignedIn>
+                        {isAdmin && (
+                            <Link href="/members/admin" className={styles.link}>Admin</Link>
+                        )}
                         <Link href="/profile" className={styles.link}>Profile</Link>
                         <UserButton afterSignOutUrl="/" />
                     </SignedIn>

@@ -29,7 +29,7 @@
 
 .section h2 {
     font-size: 1.1rem;
-    color: #ffffff;
+    color: var(--blue-text);
     font-weight: 600;
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;

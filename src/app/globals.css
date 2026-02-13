@@ -13,6 +13,8 @@
   --surface: #FFFFFF;
   --border: #e5e7eb;
 
+  --blue-text: var(--columbia-blue);
+
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
   --transition: all 0.3s ease;
@@ -34,6 +36,8 @@
     /* Muted gray text */
     --border: #1E3A8A;
     /* Dark Blue border */
+
+    --blue-text: var(--columbia-light-blue);
 
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.6);
@@ -183,7 +187,7 @@ h3 {
 .site-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--columbia-blue);
+  color: var(--blue-text);
   line-height: 1.2;
 }
 
@@ -228,7 +232,7 @@ h3 {
 
 .btn-primary {
   background-color: var(--white);
-  color: var(--columbia-blue);
+  color: var(--blue-text);
 }
 
 .btn-primary:hover {
@@ -244,5 +248,5 @@ h3 {
 
 .btn-secondary:hover {
   background-color: var(--white);
-  color: var(--columbia-blue);
+  color: var(--blue-text);
 }

@@ -17,7 +17,7 @@
 }
 
 .title {
-    color: var(--columbia-blue);
+    color: var(--blue-text);
     margin-bottom: 0.5rem;
     text-align: center;
 }
@@ -71,7 +71,7 @@
 
 .secondaryBtn {
     background: transparent;
-    color: var(--columbia-blue);
+    color: var(--blue-text);
     padding: 0.75rem;
     border: 1px solid var(--columbia-blue);
     border-radius: 6px;

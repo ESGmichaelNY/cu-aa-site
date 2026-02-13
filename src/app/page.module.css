@@ -70,7 +70,7 @@
 
 .btnPrimary {
     background-color: var(--white);
-    color: var(--columbia-blue);
+    color: var(--blue-text);
 }
 
 .btnPrimary:hover {
@@ -86,7 +86,7 @@
 
 .btnSecondary:hover {
     background-color: var(--white);
-    color: var(--columbia-blue);
+    color: var(--blue-text);
 }
 
 .section {
@@ -94,7 +94,7 @@
 }
 
 .sectionTitle {
-    color: var(--columbia-blue);
+    color: var(--blue-text);
     font-size: 2rem;
     margin-bottom: 0.5rem;
     text-align: center;
@@ -141,7 +141,7 @@
 }
 
 .card h3 {
-    color: var(--columbia-blue);
+    color: var(--blue-text);
     font-size: 1.25rem;
     margin-bottom: 0.75rem;
 }
@@ -155,7 +155,7 @@
 
 .cardCta {
     font-weight: 600;
-    color: var(--columbia-blue);
+    color: var(--blue-text);
     font-size: 0.95rem;
 }
 

@@ -2,19 +2,24 @@
 
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { auth } from '@clerk/nextjs/server'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import { getDb } from '@/utils/db'
 
-async function requireAuth() {
+async function requireAdmin() {
     const { userId } = await auth()
     if (!userId) {
         redirect('/sign-in')
+    }
+    const user = await currentUser()
+    const role = (user?.publicMetadata as { role?: string })?.role
+    if (role !== 'admin') {
+        throw new Error('Unauthorized')
     }
     return userId
 }
 
 export async function deleteProfile(formData: FormData) {
-    await requireAuth()
+    await requireAdmin()
 
     const id = formData.get('id') as string
     if (!id) throw new Error('Profile ID is required')
@@ -27,7 +32,7 @@ export async function deleteProfile(formData: FormData) {
 }
 
 export async function approveJoinRequest(formData: FormData) {
-    await requireAuth()
+    await requireAdmin()
 
     const requestId = formData.get('request_id') as string
     if (!requestId) throw new Error('Request ID is required')
@@ -54,7 +59,7 @@ export async function approveJoinRequest(formData: FormData) {
 }
 
 export async function rejectJoinRequest(formData: FormData) {
-    await requireAuth()
+    await requireAdmin()
 
     const requestId = formData.get('request_id') as string
     if (!requestId) throw new Error('Request ID is required')
@@ -66,7 +71,7 @@ export async function rejectJoinRequest(formData: FormData) {
 }
 
 export async function editProfile(id: string, formData: FormData) {
-    await requireAuth()
+    await requireAdmin()
 
     if (!id) throw new Error('Profile ID is required')
 

@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { getDb } from "@/utils/db";
@@ -27,6 +27,12 @@ export default async function EditMemberPage(props: {
 
     if (!userId) {
         redirect("/sign-in");
+    }
+
+    const user = await currentUser();
+    const role = (user?.publicMetadata as { role?: string })?.role;
+    if (role !== 'admin') {
+        redirect("/members/directory");
     }
 
     const sql = getDb();

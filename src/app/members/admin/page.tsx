@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getDb } from "@/utils/db";
@@ -35,6 +35,13 @@ export default async function AdminPage(props: {
 
     if (!userId) {
         redirect("/sign-in");
+    }
+
+    // Check admin role via Clerk publicMetadata
+    const user = await currentUser();
+    const role = (user?.publicMetadata as { role?: string })?.role;
+    if (role !== 'admin') {
+        redirect("/members/directory");
     }
 
     if (!process.env.DATABASE_URL) {

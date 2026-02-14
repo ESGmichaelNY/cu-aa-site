@@ -39,23 +39,14 @@ export async function approveJoinRequest(formData: FormData) {
 
     const sql = getDb()
 
-    // Get the join request
-    const rows = await sql`SELECT * FROM join_requests WHERE id = ${requestId} AND status = 'pending' LIMIT 1`
-    const request = rows[0]
-    if (!request) throw new Error('Request not found or already processed')
+    // Verify the request exists and is pending
+    const rows = await sql`SELECT id FROM join_requests WHERE id = ${requestId} AND status = 'pending' LIMIT 1`
+    if (rows.length === 0) throw new Error('Request not found or already processed')
 
-    // Create profile from request data
-    await sql`
-        INSERT INTO profiles (clerk_user_id, full_name, class_year, school, industry, company, bio, linkedin_url)
-        VALUES (${request.clerk_user_id}, ${request.full_name}, ${request.class_year}, ${request.school}, ${request.industry}, ${request.company}, ${request.bio}, ${request.linkedin_url})
-        ON CONFLICT (clerk_user_id) DO NOTHING
-    `
-
-    // Mark request as approved
+    // Mark request as approved — profile is created when the user signs up and signs in
     await sql`UPDATE join_requests SET status = 'approved', reviewed_at = NOW() WHERE id = ${requestId}`
 
     revalidatePath('/members/admin')
-    revalidatePath('/members/directory')
 }
 
 export async function rejectJoinRequest(formData: FormData) {

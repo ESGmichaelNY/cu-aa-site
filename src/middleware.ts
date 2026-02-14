@@ -1,12 +1,17 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
 
 const isProtectedRoute = createRouteMatcher([
   '/profile(.*)',
   '/members(.*)',
-  '/join(.*)',
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
+  // Redirect /sign-up to /join so users must apply first
+  if (req.nextUrl.pathname.startsWith('/sign-up')) {
+    return NextResponse.redirect(new URL('/join', req.url));
+  }
+
   if (isProtectedRoute(req)) {
     await auth.protect();
   }

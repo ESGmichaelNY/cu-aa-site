@@ -2,10 +2,20 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getDb } from "@/utils/db";
-import { deleteProfile } from "./actions";
+import { deleteProfile, approveJoinRequest, rejectJoinRequest } from "./actions";
 import styles from "./admin.module.css";
 
 export const dynamic = 'force-dynamic';
+
+interface JoinRequest {
+    id: string;
+    clerk_user_id: string;
+    email: string | null;
+    full_name: string | null;
+    class_year: string | null;
+    school: string | null;
+    created_at: string;
+}
 
 interface Profile {
     id: string;
@@ -32,6 +42,18 @@ export default async function AdminPage(props: {
     }
 
     const sql = getDb();
+
+    let pendingRequests: JoinRequest[] = [];
+    try {
+        pendingRequests = await sql`
+            SELECT id, clerk_user_id, email, full_name, class_year, school, created_at
+            FROM join_requests
+            WHERE status = 'pending'
+            ORDER BY created_at ASC
+        ` as JoinRequest[];
+    } catch (error) {
+        console.error("Error fetching join requests:", error);
+    }
 
     let profiles: Profile[];
     try {
@@ -76,6 +98,57 @@ export default async function AdminPage(props: {
                     </form>
                 </div>
             </div>
+
+            {pendingRequests.length > 0 && (
+                <div className={styles.container}>
+                    <div className={styles.pendingSection}>
+                        <h2 className={styles.pendingTitle}>
+                            Pending Requests ({pendingRequests.length})
+                        </h2>
+                        <div className={styles.tableWrapper}>
+                            <table className={styles.table}>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>School</th>
+                                        <th>Year</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {pendingRequests.map((req) => (
+                                        <tr key={req.id}>
+                                            <td>{req.full_name || "—"}</td>
+                                            <td>{req.email || "—"}</td>
+                                            <td>{req.school || "—"}</td>
+                                            <td>{req.class_year || "—"}</td>
+                                            <td>{new Date(req.created_at).toLocaleDateString()}</td>
+                                            <td>
+                                                <div className={styles.actions}>
+                                                    <form action={approveJoinRequest}>
+                                                        <input type="hidden" name="request_id" value={req.id} />
+                                                        <button type="submit" className={styles.approveBtn}>
+                                                            Approve
+                                                        </button>
+                                                    </form>
+                                                    <form action={rejectJoinRequest}>
+                                                        <input type="hidden" name="request_id" value={req.id} />
+                                                        <button type="submit" className={styles.deleteBtn}>
+                                                            Reject
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className={styles.container}>
                 <div className={styles.tableWrapper}>

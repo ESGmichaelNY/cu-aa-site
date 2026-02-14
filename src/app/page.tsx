@@ -16,10 +16,10 @@ export default function Home() {
                         <div className={styles.heroContent}>
                             <h1>Columbia University African Alumni (CU-AA)</h1>
                             <p className={styles.heroSubtitle}>
-                                united by education, driven by Africa&apos;s potential
+                                &mdash;united by education, driven by Africa&apos;s potential&mdash;
                             </p>
                             <div className={styles.heroButtons}>
-                                <Link href="/members/directory" className={styles.btnPrimary}>
+                                <Link href="/join" className={styles.btnPrimary}>
                                     Join the Community
                                 </Link>
                                 <Link href="/about" className={styles.btnSecondary}>

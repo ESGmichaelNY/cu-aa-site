@@ -258,6 +258,33 @@
     border-color: var(--text-light);
 }
 
+/* Pending requests */
+.pendingSection {
+    margin-bottom: 2rem;
+}
+
+.pendingTitle {
+    font-size: 1.25rem;
+    color: var(--blue-text);
+    margin-bottom: 1rem;
+}
+
+.approveBtn {
+    background-color: #16a34a;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.approveBtn:hover {
+    opacity: 0.9;
+}
+
 @media (max-width: 768px) {
     .table th:nth-child(4),
     .table td:nth-child(4),

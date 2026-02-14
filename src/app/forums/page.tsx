@@ -61,6 +61,37 @@ export default function ForumsPage() {
                         ))}
                     </div>
 
+                    <div id="recordings" className={styles.recordingsSection}>
+                        <h2>Meeting Recordings &amp; Files</h2>
+                        <p className={styles.recordingsIntro}>
+                            Access recordings and materials from our Monthly Group Meetings.
+                        </p>
+
+                        <div className={styles.fileList}>
+                            <div className={styles.fileItem}>
+                                <span className={styles.fileIcon}>📁</span>
+                                <div>
+                                    <h4>2026 Meetings</h4>
+                                    <p>Recordings and agendas from 2026 sessions</p>
+                                </div>
+                            </div>
+                            <div className={styles.fileItem}>
+                                <span className={styles.fileIcon}>📁</span>
+                                <div>
+                                    <h4>2025 Meetings</h4>
+                                    <p>Recordings and agendas from 2025 sessions</p>
+                                </div>
+                            </div>
+                            <div className={styles.fileItem}>
+                                <span className={styles.fileIcon}>📄</span>
+                                <div>
+                                    <h4>Meeting Templates &amp; Resources</h4>
+                                    <p>Shared documents, templates, and reference materials</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className={styles.whatsappCta}>
                         <div className={styles.whatsappIcon}>💬</div>
                         <div>

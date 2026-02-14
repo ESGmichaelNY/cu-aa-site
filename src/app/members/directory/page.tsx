@@ -44,7 +44,28 @@ export default async function DirectoryPage(props: {
         );
     }
 
-    // 3. Fetch profiles with optional search/filter
+    // 3. Check if user is a member
+    try {
+        const sql0 = getDb();
+        const memberCheck = await sql0`SELECT id FROM profiles WHERE clerk_user_id = ${userId} LIMIT 1`;
+        if (memberCheck.length === 0) {
+            return (
+                <div className={styles.page}>
+                    <div className={styles.header}>
+                        <div className={styles.container}>
+                            <h1>Alumni Directory</h1>
+                            <p>You need to be an approved member to view the directory.</p>
+                            <a href="/join" style={{ color: 'var(--columbia-blue)', fontWeight: 600 }}>Request to Join</a>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+    } catch {
+        // If DB check fails, continue to show directory (fail open for existing members)
+    }
+
+    // 4. Fetch profiles with optional search/filter
     let profiles: Profile[];
     try {
         const sql = getDb();

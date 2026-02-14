@@ -82,6 +82,65 @@
     font-weight: 600;
 }
 
+.recordingsSection {
+    margin-bottom: 3rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.recordingsSection h2 {
+    color: var(--blue-text);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.recordingsIntro {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+.fileList {
+    display: flex;
+    flex-direction: column;
+}
+
+.fileItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    transition: background-color 0.15s;
+    cursor: pointer;
+}
+
+.fileItem:last-child {
+    border-bottom: none;
+}
+
+.fileItem:hover {
+    background-color: rgba(0, 46, 109, 0.03);
+}
+
+.fileIcon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.fileItem h4 {
+    color: var(--text-dark);
+    font-size: 1rem;
+    margin-bottom: 0.15rem;
+}
+
+.fileItem p {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
 .whatsappCta {
     display: flex;
     align-items: flex-start;

@@ -1,36 +1,72 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getDb } from "@/utils/db";
-import { updateProfile } from "../auth/actions";
-import styles from "./profile.module.css";
+import { submitJoinRequest } from "./actions";
+import styles from "./join.module.css";
 
-export default async function ProfilePage() {
+export const dynamic = 'force-dynamic';
+
+export default async function JoinPage() {
     const { userId } = await auth();
 
     if (!userId) {
-        return redirect("/sign-in");
+        redirect("/sign-in");
     }
 
+    const user = await currentUser();
     const sql = getDb();
 
-    // Fetch current profile data by clerk_user_id
-    const rows = await sql`SELECT * FROM profiles WHERE clerk_user_id = ${userId} LIMIT 1`;
-    const profile = rows[0] || null;
-
-    // If no profile exists, redirect to join page
-    if (!profile) {
-        return redirect("/join");
+    // If already a member, go to directory
+    const existing = await sql`SELECT id FROM profiles WHERE clerk_user_id = ${userId} LIMIT 1`;
+    if (existing.length > 0) {
+        redirect("/members/directory");
     }
+
+    // Check for existing join request
+    const requests = await sql`SELECT status FROM join_requests WHERE clerk_user_id = ${userId} LIMIT 1`;
+    const request = requests[0];
+
+    if (request) {
+        return (
+            <div className={styles.page}>
+                <div className={styles.container}>
+                    <h1>Join CU-AA</h1>
+                    <div className={styles.statusCard}>
+                        {request.status === 'pending' && (
+                            <>
+                                <h2>Request Pending</h2>
+                                <p>
+                                    Your request to join the CU-AA community has been submitted
+                                    and is awaiting review. We&apos;ll notify you once it&apos;s been processed.
+                                </p>
+                            </>
+                        )}
+                        {request.status === 'rejected' && (
+                            <>
+                                <h2>Request Not Approved</h2>
+                                <p>
+                                    Unfortunately, your request was not approved at this time.
+                                    Please contact an administrator if you believe this was in error.
+                                </p>
+                            </>
+                        )}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    const defaultName = user?.fullName || "";
 
     return (
         <div className={styles.page}>
             <div className={styles.container}>
-                <h1>Your Profile</h1>
+                <h1>Join CU-AA</h1>
                 <p className={styles.subtitle}>
-                    This information will be displayed in the Alumni Directory.
+                    Fill out the form below to request membership in the Columbia University Africa Alumni community.
                 </p>
 
-                <form action={updateProfile} className={styles.form}>
+                <form action={submitJoinRequest} className={styles.form}>
                     <div className={styles.section}>
                         <h2>Basic Info</h2>
                         <div className={styles.grid}>
@@ -39,16 +75,16 @@ export default async function ProfilePage() {
                                 <input
                                     id="full_name"
                                     name="full_name"
-                                    defaultValue={profile?.full_name || ""}
+                                    required
+                                    defaultValue={defaultName}
                                     placeholder="e.g. Jane Doe"
                                 />
                             </div>
                             <div className={styles.field}>
-                                <label htmlFor="linkedin_url">Linked In URL</label>
+                                <label htmlFor="linkedin_url">LinkedIn URL</label>
                                 <input
                                     id="linkedin_url"
                                     name="linkedin_url"
-                                    defaultValue={profile?.linkedin_url || ""}
                                     placeholder="https://linkedin.com/in/..."
                                 />
                             </div>
@@ -60,7 +96,7 @@ export default async function ProfilePage() {
                         <div className={styles.grid}>
                             <div className={styles.field}>
                                 <label htmlFor="school">School</label>
-                                <select id="school" name="school" defaultValue={profile?.school || ""}>
+                                <select id="school" name="school">
                                     <option value="">Select a school...</option>
                                     <option value="CC">Columbia College</option>
                                     <option value="SEAS">Fu Foundation School of Engineering (SEAS)</option>
@@ -90,7 +126,6 @@ export default async function ProfilePage() {
                                 <input
                                     id="class_year"
                                     name="class_year"
-                                    defaultValue={profile?.class_year || ""}
                                     placeholder="e.g. 2015"
                                 />
                             </div>
@@ -105,7 +140,6 @@ export default async function ProfilePage() {
                                 <input
                                     id="industry"
                                     name="industry"
-                                    defaultValue={profile?.industry || ""}
                                     placeholder="e.g. Finance, Tech, Healthcare"
                                 />
                             </div>
@@ -114,7 +148,6 @@ export default async function ProfilePage() {
                                 <input
                                     id="company"
                                     name="company"
-                                    defaultValue={profile?.company || ""}
                                     placeholder="e.g. Google"
                                 />
                             </div>
@@ -129,15 +162,14 @@ export default async function ProfilePage() {
                                 id="bio"
                                 name="bio"
                                 rows={4}
-                                defaultValue={profile?.bio || ""}
                                 placeholder="Tell the community about your work and interests..."
                             />
                         </div>
                     </div>
 
                     <div className={styles.submitArea}>
-                        <button type="submit" className={styles.saveBtn}>
-                            Save Changes
+                        <button type="submit" className={styles.submitBtn}>
+                            Submit Request
                         </button>
                     </div>
                 </form>

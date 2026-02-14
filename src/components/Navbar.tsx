@@ -34,8 +34,10 @@ export default function Navbar() {
                         </div>
                     </div>
 
+                    <Link href="/blog" className={styles.link}>Blog</Link>
+
                     <Link href="/contact" className={styles.link}>Contact</Link>
-                    <Link href="/donate" className={styles.link}>Donate</Link>
+                    <Link href="/donate" className={styles.donateBtn}>Donate</Link>
 
                     <div className={styles.divider}></div>
 

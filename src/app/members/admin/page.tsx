@@ -91,6 +91,12 @@ export default async function AdminPage(props: {
                     <h1>Manage Members</h1>
                     <p>{profiles.length} member{profiles.length !== 1 ? "s" : ""} in directory</p>
 
+                    <div className={styles.searchBar}>
+                        <Link href="/members/admin/add" className={styles.approveBtn}>
+                            + Add Member
+                        </Link>
+                    </div>
+
                     <form className={styles.searchBar}>
                         <input
                             name="search"

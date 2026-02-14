@@ -61,6 +61,29 @@ export async function rejectJoinRequest(formData: FormData) {
     revalidatePath('/members/admin')
 }
 
+export async function addProfile(formData: FormData) {
+    await requireAdmin()
+
+    const sql = getDb()
+
+    const fullName = formData.get('full_name') as string | null
+    const classYear = formData.get('class_year') as string | null
+    const school = formData.get('school') as string | null
+    const industry = formData.get('industry') as string | null
+    const company = formData.get('company') as string | null
+    const bio = formData.get('bio') as string | null
+    const linkedinUrl = formData.get('linkedin_url') as string | null
+
+    await sql`
+        INSERT INTO profiles (full_name, class_year, school, industry, company, bio, linkedin_url)
+        VALUES (${fullName}, ${classYear}, ${school}, ${industry}, ${company}, ${bio}, ${linkedinUrl})
+    `
+
+    revalidatePath('/members/admin')
+    revalidatePath('/members/directory')
+    redirect('/members/admin')
+}
+
 export async function editProfile(id: string, formData: FormData) {
     await requireAdmin()
 
